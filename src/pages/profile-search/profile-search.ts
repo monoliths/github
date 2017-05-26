@@ -16,11 +16,17 @@ export class ProfileSearchPage {
 
   username: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileSearchPage');
+  getUserInformation(): void {
+    if (this.username.length > 0) {
+      this.navCtrl.push('ProfileSearchResultsPage', {
+        username: this.username
+      }) 
+    } else {
+      console.log("username cant be blank");
+    }
   }
 
 }
