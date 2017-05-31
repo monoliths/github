@@ -6,10 +6,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { GithubServiceProvider } from '../providers/github-service/github.service';
+import { RepositoriesComponent } from '../components/repositories/repositories';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    RepositoriesComponent
   ],
   imports: [
     BrowserModule,
