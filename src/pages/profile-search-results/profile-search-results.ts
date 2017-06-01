@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
 import { User } from '../../models/user.interface';
+import { Repository } from '../../models/repository.interface';
 import { GithubServiceProvider }  from '../../providers/github-service/github.service';
 
 
@@ -21,6 +22,7 @@ export class ProfileSearchResultsPage {
 
   username: string;
   user: User;
+  repositories: Repository[];
 
   constructor(private github:GithubServiceProvider, private navCtrl: NavController, private navParams: NavParams) {
   }
@@ -29,11 +31,16 @@ export class ProfileSearchResultsPage {
    this.username = this.navParams.get("username")
    console.log("username: " + this.username)
    this.getUserInformation();
-   console.log(this.user)
+   this.getRepositoryInformation();
   }
 
   getUserInformation(): void {
     this.github.mockGetUserInformation(this.username).subscribe((data: User) => this.user = data);
+  }
+
+  getRepositoryInformation(): void {
+    console.log("in the getRepositoryInforation()");
+    this.github.mockGetRepositroyInformation(this.user).subscribe((data: Repository[]) => this.repositories = data);
   }
 
 }

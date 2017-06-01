@@ -6,7 +6,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import { User } from '../../models/user.interface';
+import { Repository } from '../../models/repository.interface';
 import { USER_LIST } from '../../mocks/user.mocks';
+import { REPOSITORY_LIST } from '../../mocks/repository.mocks';
 
 /*
   Generated class for the GithubServiceProvider provider.
@@ -27,6 +29,10 @@ export class GithubServiceProvider {
   */
   mockGetUserInformation(username: string): Observable<User> {
     return Observable.of(USER_LIST.filter(user => user.name === username)[0]);
+  }
+
+  mockGetRepositroyInformation(user: User): Observable<Repository[]> {
+    return Observable.of(REPOSITORY_LIST.filter(user => user === user));
   }
 
 }
