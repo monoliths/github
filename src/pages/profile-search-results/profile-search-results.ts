@@ -28,10 +28,11 @@ export class ProfileSearchResultsPage {
   }
 
   ionViewWillLoad(){
-   this.username = this.navParams.get("username")
-   console.log("username: " + this.username)
-   this.getUserInformation();
-   this.getRepositoryInformation();
+   this.username = this.navParams.get("username");
+   console.log("username: " + this.username);
+   this.github.getUserInformation(this.username).subscribe((data: User) => this.user = data);
+  //  this.getUserInformation();
+  //  this.getRepositoryInformation();
   }
 
   getUserInformation(): void {
