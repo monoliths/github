@@ -40,7 +40,7 @@ export class ProfileSearchResultsPage {
 
   getRepositoryInformation(): void {
     console.log("in the getRepositoryInforation()");
-    this.github.mockGetRepositroyInformation(this.user).subscribe((data: Repository[]) => this.repositories = data);
+    this.github.mockGetRepositroyInformation(this.username).subscribe((data: Repository[]) => this.repositories = data);
   }
 
 }

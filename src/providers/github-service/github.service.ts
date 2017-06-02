@@ -24,15 +24,19 @@ export class GithubServiceProvider {
   }
 
   /*
-    Finding the username from within the USER_LIST, equal to the username passed in
+    Finding the User from within the USER_LIST, equal to the username passed in
     Returing the results as an Observable.
   */
   mockGetUserInformation(username: string): Observable<User> {
     return Observable.of(USER_LIST.filter(user => user.name === username)[0]);
   }
 
-  mockGetRepositroyInformation(user: User): Observable<Repository[]> {
-    return Observable.of(REPOSITORY_LIST.filter(user => user === user));
+  /*
+    Finding the Repository from within the REPOSITORY_LIST, equal to the username passed in
+    Returing the results as an Observable.
+  */
+  mockGetRepositroyInformation(username: string): Observable<Repository[]> {
+    return Observable.of(REPOSITORY_LIST.filter(repository => repository.owner.name === username));
   }
 
 }
