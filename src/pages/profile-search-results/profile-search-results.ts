@@ -13,7 +13,9 @@ import { GithubServiceProvider }  from '../../providers/github-service/github.se
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+@IonicPage({
+  segment: 'profile/results/:username'
+})
 @Component({
   selector: 'page-profile-search-results',
   templateUrl: 'profile-search-results.html',
@@ -29,19 +31,22 @@ export class ProfileSearchResultsPage {
 
   ionViewWillLoad(){
    this.username = this.navParams.get("username");
-   console.log("username: " + this.username);
-   this.github.getUserInformation(this.username).subscribe((data: User) => this.user = data);
-  //  this.getUserInformation();
-  //  this.getRepositoryInformation();
+   if (this.username) {
+    this.getUserInformation();
+    this.getRepositoryInformation();
+   }
   }
 
   getUserInformation(): void {
-    this.github.mockGetUserInformation(this.username).subscribe((data: User) => this.user = data);
+    console.log("in the getUserInforation()");
+    this.github.getUserInformation(this.username).subscribe((data: User) => this.user = data);
+    //this.github.mockGetUserInformation(this.username).subscribe((data: User) => this.user = data);
   }
 
   getRepositoryInformation(): void {
     console.log("in the getRepositoryInforation()");
-    this.github.mockGetRepositroyInformation(this.username).subscribe((data: Repository[]) => this.repositories = data);
+    //this.github.mockGetRepositroyInformation(this.username).subscribe((data: Repository[]) => this.repositories = data);
+    this.github.getRepositoryInformation(this.username).subscribe((data: Repository[]) => this.repositories = data);
   }
 
 }

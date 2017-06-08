@@ -30,10 +30,18 @@ export class GithubServiceProvider {
 
   getUserInformation(username: string): Observable<User> {
     return this.http.get(`${this.baseUrl}/${username}`)
-    .do((data: Response) => console.log(data))
-    .map((data: Response) => data.json())
-    .do((data: Response) => console.log(data))
-    .catch((error: Response) => Observable.throw(error.json().error || "Server error."))
+    .do(this.logData)
+    .map(this.extractData)
+    .do(this.logData)
+    .catch(this.handleError)
+  }
+
+  getRepositoryInformation(username: string): Observable<Repository[]> {
+    return this.http.get(`${this.baseUrl}/${username}/repos`)
+    .do(this.logData)
+    .map(this.extractData)
+    .do(this.logData)
+    .catch(this.handleError)
   }
 
   /*
@@ -50,6 +58,18 @@ export class GithubServiceProvider {
   */
   mockGetRepositroyInformation(username: string): Observable<Repository[]> {
     return Observable.of(REPOSITORY_LIST.filter(repository => repository.owner.name === username));
+  }
+
+  private logData(response: Response) {
+    console.log(response);
+  }
+
+  private extractData(response: Response) {
+    return response.json();
+  }
+
+  private handleError(error: Response | any) {
+    return  Observable.throw(error.json().error || "Server error.");
   }
 
 }
